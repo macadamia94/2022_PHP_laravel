@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
+});
+
+Route::prefix('boards')->group(function () {
+  Route::get('/', [BoardController::class, 'index']);
+  Route::get('create', [BoardController::class, 'create'])->name('boards.create');
+  Route::post('store', [BoardController::class, 'store'])->name('boards.store');
+  Route::get('show', [BoardController::class, 'show'])->name('boards.show');
+  Route::get('edit', [BoardController::class, 'edit'])->name('boards.edit');
+  Route::post('update', [BoardController::class, 'update'])->name('boards.update');
+  Route::get('destroy', [BoardController::class, 'destroy']);
 });

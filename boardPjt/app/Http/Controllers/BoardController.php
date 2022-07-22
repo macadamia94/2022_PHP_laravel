@@ -28,7 +28,7 @@ class BoardController extends Controller
       'hits' => 0
     ]);
     $board->save();
-    return redirect('/boards');
+    return redirect()->route('boards.show', ["id" => $board->id]);
   }
 
   public function show(Request $req)
@@ -49,7 +49,7 @@ class BoardController extends Controller
   public function update(Request $req)
   {
     $id = $req->input('id');
-    $board = Board::find($id);
+    $board = Board::findOrFail($id);
     $board->title = $req->input('title');
     $board->ctnt = $req->input('ctnt');
     $board->save();
